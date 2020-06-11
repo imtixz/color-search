@@ -1,0 +1,12 @@
+{% extends "layout.html" %} {% block content %}
+<div class="row">
+  {% for url, raw in zip(urls,raws) %}
+  <div class="column">
+    <a href="{{raw}}"
+      ><img src="{{ url }}" style="height: 200px; margin: 5px;"
+    /></a>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}

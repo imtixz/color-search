@@ -1,0 +1,105 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container py-5">
+    <!-- For demo purpose -->
+    <header class="text-white text-center">
+      <h1 class="display-4">Color Search</h1>
+      <p class="lead mb-0">
+        Upload a photo to search.
+      </p>
+    </header>
+  
+    <div class="row py-4">
+      <div class="col-lg-6 mx-auto">
+        <!-- Upload image input-->
+        <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+          <form action='/' method='POST' enctype='multipart/form-data'>
+              <input
+              name='image'
+            id="upload"
+            type="file"
+            onchange="readURL(this);"
+            class="form-control border-0"
+          />
+          <label
+            id="upload-label"
+            for="upload"
+            class="font-weight-light text-muted font-weight-bold text-uppercase text-center"
+            > Click here to choose an image</label
+          >
+        </div>
+  
+        <!-- Uploaded image area-->
+        <div class="image-area mt-4">
+          <img
+            id="imageResult"
+            src="#"
+            alt=""
+            class="img-fluid rounded shadow-sm mx-auto d-block"
+          />
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-lg-3 col-md-2 col-sm-0 col-xs-0"></div>
+          <div
+            class="col-lg-6 col-md-8 col-sm-12 col-xs-12 justify-content-center"
+          >
+            <button 
+              class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm"
+              onclick="consolelog()"
+            >
+              <small class="text-uppercase font-weight-bold text-muted" id="searchButton"
+                >Search</small
+              >
+            </button>
+          </div>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %} {% block script %}
+<script>
+    /*  ==========================================
+      SHOW UPLOADED IMAGE
+  * ========================================== */
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+  
+        reader.onload = function (e) {
+          $("#imageResult").attr("src", e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+  
+    $(function () {
+      $("#upload").on("change", function () {
+        readURL(input);
+      });
+    });
+  
+    /*  ==========================================
+      SHOW UPLOADED IMAGE NAME
+  * ========================================== */
+    var input = document.getElementById("upload");
+    var infoArea = document.getElementById("upload-label");
+  
+    input.addEventListener("change", showFileName);
+    function showFileName(event) {
+      var input = event.srcElement;
+      var fileName = input.files[0].name;
+      infoArea.textContent = "File name: " + fileName;
+    }
+  
+    function consolelog() {
+      console.log("The function is working yo");
+
+      let label = document.getElementById('upload-label').innerHTML = "Please wait for the page to load...";
+
+      let button_text = document.getElementById('searchButton').innerHTML = 'Loading...'
+
+    }
+  </script>
+{% endblock script %}
